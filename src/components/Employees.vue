@@ -3,19 +3,21 @@
     <div class="message" v-if="employees">
       <h1 class="is-size-2">Työn_Tekijät</h1>
       <div
-        class="message-body"
+        class="message"
         v-for="(employee, index) in employees"
         :employee="employee"
         :key="index"
       >
-        <h2 class="is-size-4">
-          {{ employee.firstName + " " + employee.lastName }}
-        </h2>
-        <p class="is-size-6">Osoite: {{ employee.address }}</p>
-        <p class="is-size-6">puh. koti: {{ employee.phone.home }}</p>
-        <p class="is-size-6" v-if="employee.phone.work">
-          puh. työ: {{ employee.phone.work }}
-        </p>
+        <ul>
+          <li class="is-size-4">
+            {{ employee.firstName + " " + employee.lastName }}
+          </li>
+          <li class="is-size-6">Osoite: {{ employee.address }}</li>
+          <li class="is-size-6">puh. koti: {{ employee.phone.home }}</li>
+          <li class="is-size-6" v-if="employee.phone.work">
+            puh. työ: {{ employee.phone.work }}
+          </li>
+        </ul>
       </div>
     </div>
     <div class="message">
@@ -37,7 +39,7 @@
 </template>
 
 <script>
-import { getEmployees, createEmployee } from "../repository.ts";
+import { getEmployees, createEmployee } from "../repository";
 export default {
   name: "Employees",
   data() {
@@ -61,7 +63,7 @@ export default {
       console.log(newData);
       try {
         createEmployee(newData)
-          .then((response) => {
+          .then(() => {
             this.firstName = "";
             this.lastName = "";
             this.address = "";

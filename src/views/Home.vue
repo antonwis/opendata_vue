@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <Employees />
+    <CityBikes />
   </div>
 </template>
 
