@@ -38,51 +38,49 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Options, Vue } from "vue-class-component";
 import { getEmployees, createEmployee } from "../repository";
-export default {
-  name: "Employees",
-  data() {
-    return {
-      employees: [],
-      firstName: "",
-      lastName: "",
-      address: "",
-      homeNr: "",
-      workNr: "",
+
+@Options({})
+export default class Employees extends Vue {
+  private employees: any = [];
+  private firstName = "";
+  private lastName = "";
+  private address = "";
+  private homeNr = "";
+  private workNr = "";
+
+  public create(): void {
+    const newData = {
+      firstName: this.firstName,
+      lastName: this.lastName,
+      address: this.address,
+      phone: { home: this.homeNr, work: this.workNr }
     };
-  },
-  methods: {
-    create() {
-      const newData = {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        address: this.address,
-        phone: { home: this.homeNr, work: this.workNr },
-      };
-      console.log(newData);
-      try {
-        createEmployee(newData)
-          .then(() => {
-            this.firstName = "";
-            this.lastName = "";
-            this.address = "";
-            this.homeNr = "";
-            this.workNr = "";
-          })
-          .catch((err) => console.log(err));
-      } catch (error) {
-        console.log(error.message);
-      }
-      location.reload();
-    },
-  },
+    console.log(newData);
+    try {
+      createEmployee(newData)
+        .then(() => {
+          this.firstName = "";
+          this.lastName = "";
+          this.address = "";
+          this.homeNr = "";
+          this.workNr = "";
+        })
+        .catch(err => console.log(err));
+    } catch (error) {
+      console.log(error.message);
+    }
+    location.reload();
+  }
+
   async mounted() {
     getEmployees()
-      .then((data) => (this.employees = data.data))
-      .catch((err) => console.log(err));
-  },
-};
+      .then(data => (this.employees = data.data))
+      .catch(err => console.log(err));
+  }
+}
 </script>
 
 <style></style>

@@ -1,25 +1,24 @@
 <template>
-  <div class="container">
-    {{citybikes}}
-  </div>
+  <div class="container">{{ bikedata }}</div>
 </template>
 
-<script>
+<script lang="ts">
+import { Options, Vue } from "vue-class-component";
 import { getCityBikes } from "../repository";
-export default {
-  data() {
-    return {
-      citybikes: [],
-    };
-  },
+
+@Options({})
+export default class CityBikes extends Vue {
+  private bikedata: any = [];
+
   async mounted() {
+    console.log("mounted");
     getCityBikes()
-      .then((data) => (this.citybikes = data))
-      .then(data => console.log(data))
+      .then((data) => (this.bikedata = data))
+      .then((data) => console.log(data))
       .catch((err) => console.log(err));
-      console.log(this.citybikes);
-  },
-};
+    console.log(this.bikedata);
+  }
+}
 </script>
 
 <style></style>
