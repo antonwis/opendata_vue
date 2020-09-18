@@ -15,7 +15,7 @@ export async function getEmployees() {
 // Get all citybike data
 export async function getCityBikes() {
   try {
-    const response = await axios.get(`http://api.citybik.es/v2/networks/citybikes-helsinki`);
+    const response: any = await axios.get(`http://api.citybik.es/v2/networks/citybikes-helsinki`);
     return response.data;
   } catch (error) {
     return await Promise.reject(error.message);

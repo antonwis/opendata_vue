@@ -44,7 +44,7 @@ import { getEmployees, createEmployee } from "../repository";
 
 @Options({})
 export default class Employees extends Vue {
-  private employees: any = [];
+  private employees: unknown = [];
   private firstName = "";
   private lastName = "";
   private address = "";
@@ -59,19 +59,17 @@ export default class Employees extends Vue {
       phone: { home: this.homeNr, work: this.workNr }
     };
     console.log(newData);
-    try {
-      createEmployee(newData)
-        .then(() => {
-          this.firstName = "";
-          this.lastName = "";
-          this.address = "";
-          this.homeNr = "";
-          this.workNr = "";
-        })
-        .catch(err => console.log(err));
-    } catch (error) {
-      console.log(error.message);
-    }
+
+    createEmployee(newData)
+      .then(() => {
+        this.firstName = "";
+        this.lastName = "";
+        this.address = "";
+        this.homeNr = "";
+        this.workNr = "";
+      })
+      .catch(err => console.log(err));
+
     location.reload();
   }
 
